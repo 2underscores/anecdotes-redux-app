@@ -15,6 +15,7 @@ const AnecdoteForm = () => {
     const submitCreateNote = async (e) => {
         e.preventDefault()
         const anecdoteContent = new FormData(e.target).get('newAnecdote')
+        // Shouldn't really get ID from action? Break one way data flow?
         const DispatchCreateAnecdote = await dispatch(createAnecdote(anecdoteContent))
         console.log({DispatchCreateAnecdote});
         notify(`Added Anecdote: id=${DispatchCreateAnecdote.payload.id}, content=${DispatchCreateAnecdote.payload.content}`)

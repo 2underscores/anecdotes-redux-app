@@ -13,4 +13,11 @@ const create = async (content) => {
     return resp.data
 }
 
-export { list, create }
+const setVotes = async (id, newVotes) => {
+    // Could do a GET then POST to increment, but has same hole of FE decides the final value
+    // In prod, wouldn't use json DB and instead use BE with a vote endpoint that server side incremented (if requesting user unique)
+    const resp = await axios.patch(`${baseUrl}/${id}`, {votes: newVotes})
+    return resp.data
+}
+
+export { list, create, setVotes}

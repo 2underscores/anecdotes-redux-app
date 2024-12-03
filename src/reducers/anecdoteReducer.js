@@ -47,3 +47,16 @@ export const createAnecdote = (content) => {
     return addAction
   }
 }
+
+export const addVote = (anecdoteId) => {
+  return async (dispatch, getState) => {
+    console.log({anecdoteId})
+    const state = getState()
+    console.log({state});
+    const anecdote = state.anecdotes.find(a => a.id === anecdoteId)
+    console.log({anecdote})
+    const respVote = await anecdoteService.setVotes(anecdoteId, anecdote.votes + 1)
+    console.log({respVote});
+    dispatch(voteAnecdote(anecdoteId)) // TODO: Weird, can desync here as not setting vote to what BE returned. Should refactor it to a setVote but whatever
+  }
+}
