@@ -8,6 +8,11 @@ const AnecdoteForm = () => {
     const dispatch = useDispatch()
     const notify = useNotification()
 
+    // Components should not know about service like this.
+    // Avoid pattern: svc.post().then(res=>dispatch(res.data))
+    // Component should only depend on state! And this flow passes things like ID fropm DB to dispatch call
+    // TODO: CONFIRM - redux thunks for abstracting that behind a dispatch(rawContent) interface, no ID info
+    // TODO: What if subsequently want ID? Think probs has a return or could use action prepare
     const submitCreateNote = async (e) => {
         e.preventDefault()
         const anecdoteContent = new FormData(e.target).get('newAnecdote')
