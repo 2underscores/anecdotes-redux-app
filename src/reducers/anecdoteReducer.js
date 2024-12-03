@@ -37,3 +37,13 @@ export const initializeAnecdotes = () => {
       })
   }
 }
+
+export const createAnecdote = (content) => {
+  return async (dispatch, getState) => { // eslint-disable-line no-unused-vars
+    console.log({content});
+    const newAnecdote = await anecdoteService.create(content)
+    const addAction = addAnecdote(newAnecdote)
+    dispatch(addAction)
+    return addAction
+  }
+}
